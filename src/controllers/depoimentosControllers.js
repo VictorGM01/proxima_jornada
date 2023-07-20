@@ -35,6 +35,19 @@ class depoimentoController {
       console.log(erro);
     } 
   }
+
+  static async atualizarDepoimento(req, res) {
+    try {
+      const idBuscado = req.params.id;
+      const dados = req.body;
+
+      const resultado = await depoimentos.findByIdAndUpdate(idBuscado, dados);
+
+      res.status(204).json(resultado);
+    } catch (erro) {
+      console.log(erro);
+    }
+  }
 }
 
 export default depoimentoController;

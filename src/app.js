@@ -1,6 +1,8 @@
 import express from "express";
 import db from "./config/dbConnect.js";
 import bodyParser from "body-parser";
+import routes from "./routes/routes.js";
+
 
 // ------------------ Banco de Dados ------------------
 // Verifica se houve algum erro na conexão com o banco de dados
@@ -12,15 +14,18 @@ db.once("open", () => {
 // ------------------ Banco de Dados ------------------
 
 
+const app = express();
+app.use(express.json());
+
+routes(app);
+
+
 // ------------------  Body Parser  -------------------
 // Configura o body parser para receber corpos de requisição em JSON
 app.use(bodyParser.json());
 // Configura o body parser para receber corpos de requisição em URL Encoded
 app.use(bodyParser.urlencoded({ extended: true}));
 // ------------------  Body Parser  -------------------
-
-const app = express();
-app.use(express.json());
 
 // Exporta o app para ser usado em server.js
 export default app;
