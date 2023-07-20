@@ -24,6 +24,16 @@ class depoimentoController {
       console.log(erro);
     }
   }
+
+  static async cadastrarDepoimento(req, res) {
+    try {
+      const depoimento = new depoimentos(req.body);
+      const resultado = await depoimento.save();
+      res.status(201).json(resultado);
+    } catch (erro) {
+      console.log(erro);
+    } 
+  }
 }
 
 export default depoimentoController;
