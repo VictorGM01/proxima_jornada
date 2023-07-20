@@ -15,7 +15,7 @@ class depoimentoController {
   // por meio do método findById, o mongoose busca um dado específico da coleção depoimentos
   static async obterDepoimento(req, res) {
     try {
-      const idBuscado = req.query.idDepoimento;
+      const idBuscado = req.params.id;
 
       const resultado = await depoimentos.findById(idBuscado);
 
@@ -25,6 +25,7 @@ class depoimentoController {
     }
   }
 
+  // por meio do método save, o mongoose salva um novo dado na coleção depoimentos
   static async cadastrarDepoimento(req, res) {
     try {
       const depoimento = new depoimentos(req.body);
