@@ -2,6 +2,7 @@ import express from "express";
 import db from "./config/dbConnect.js";
 import bodyParser from "body-parser";
 import routes from "./routes/routes.js";
+import cors from "cors";
 
 
 // ------------------ Banco de Dados ------------------
@@ -16,6 +17,7 @@ db.once("open", () => {
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 routes(app);
 
