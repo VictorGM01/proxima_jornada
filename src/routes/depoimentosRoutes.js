@@ -8,6 +8,7 @@ router
   .get("/depoimentos/:id", depoimentoController.obterDepoimento)
   .post("/depoimentos", depoimentoController.cadastrarDepoimento)
   .put("/depoimentos/:id", depoimentoController.atualizarDepoimento)
-  .delete("/depoimentos/:id", depoimentoController.deletarDepoimento);
+  .delete("/depoimentos/:id", depoimentoController.deletarDepoimento)
+  .get("/depoimentos-home", depoimentoController.obterTresDepoimentos);
 
 export default router;

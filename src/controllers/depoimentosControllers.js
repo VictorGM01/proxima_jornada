@@ -25,6 +25,39 @@ class depoimentoController {
     }
   }
 
+  // por meio do método countDocuments, o mongoose conta quantos dados existem na coleção depoimentos
+  // em seguida, o método skip pula um número aleatório de documentos
+  // por fim, o método findOne busca um dado específico da coleção depoimentos
+  // esse processo é repetido três vezes para obter três depoimentos aleatórios 
+  static async obterTresDepoimentos(req, res) {
+    try{
+      // Conta quantos depoimentos existem na coleção
+      const resultado = await depoimentos.countDocuments();
+
+      // Cria um conjunto para armazenar os índices selecionados
+      const indexesAleatorios = new Set();
+
+      // Gera 3 índices aleatórios únicos
+      while (indexesAleatorios.size < 3) {
+        const randomIndex = Math.floor(Math.random() * resultado);
+        indexesAleatorios.add(randomIndex);
+      }
+
+      // Transforma o conjunto de índices em um array para usar na consulta
+      const listaIndexesAleatorios = Array.from(indexesAleatorios);
+
+      // Busca os três depoimentos aleatórios
+      const depoimento1 = await depoimentos.findOne().skip(listaIndexesAleatorios[0]);
+      const depoimento2 = await depoimentos.findOne().skip(listaIndexesAleatorios[1]);
+      const depoimento3 = await depoimentos.findOne().skip(listaIndexesAleatorios[2]);
+
+      // Retorna os três depoimentos
+      res.status(200).json([depoimento1, depoimento2, depoimento3]);
+    } catch(erro){
+      console.log(erro);
+    }
+  }
+
   // por meio do método save, o mongoose salva um novo dado na coleção depoimentos
   static async cadastrarDepoimento(req, res) {
     try {
