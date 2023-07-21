@@ -36,14 +36,15 @@ class depoimentoController {
     } 
   }
 
+  // por meio do método findByIdAndUpdate, o mongoose busca e atualiza um dado específico da coleção depoimentos
   static async atualizarDepoimento(req, res) {
     try {
       const idBuscado = req.params.id;
       const dados = req.body;
 
-      const resultado = await depoimentos.findByIdAndUpdate(idBuscado, dados);
+      await depoimentos.findByIdAndUpdate(idBuscado, dados);
 
-      res.status(204).json(resultado);
+      res.status(204).end();
     } catch (erro) {
       console.log(erro);
     }
