@@ -48,6 +48,19 @@ class depoimentoController {
       console.log(erro);
     }
   }
+
+  // por meio do método findByIdAndDelete, o mongoose busca e deleta um dado específico da coleção depoimentos
+  static async deletarDepoimento(req, res) {
+    try {
+      const idBuscado = req.params.id;
+
+      await depoimentos.findByIdAndDelete(idBuscado);
+      
+      res.status(204).end();
+    } catch (erro) {
+      console.log(erro);
+    }
+  }
 }
 
 export default depoimentoController;
