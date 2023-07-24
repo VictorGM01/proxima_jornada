@@ -4,9 +4,26 @@ class destinoController {
   // por meio do método find, o mongoose busca todos os dados da coleção destinos
   static async obterDestinos(req, res) {
     try {
-      const resultado = await destinos.find();
 
-      res.status(200).json(resultado);
+      // verifica se há busca na requisicao
+      let nomeDestino = req.query.nome;
+      nomeDestino = new RegExp(nomeDestino, "i");
+
+      // se houver busca, filtra os destinos pelo nome
+      if (nomeDestino) {
+        const resultadoFiltrado = await destinos.find({nome: nomeDestino})
+          .select("nome foto preco");
+
+        // verifica se o resultado da busca é vazio
+        if (resultadoFiltrado.length === 0) {
+          res.status(404).json({mensagem: "Nenhum destino foi encontrado."});
+          return;
+        }
+        res.status(200).json(resultadoFiltrado);
+      } else {
+        const resultado = await destinos.find();
+        res.status(200).json(resultado);
+      }
     } catch (erro) {
       console.log(erro);
     }
