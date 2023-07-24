@@ -48,6 +48,18 @@ class destinoController {
       console.log(erro);
     }
   }
+
+  // por meio do método findByIdAndDelete, o mongoose busca e deleta um dado específico da coleção destinos
+  static async deletarDestino(req, res) {
+    try {
+      const idBuscado = req.params.id;
+      await destinos.findByIdAndDelete(idBuscado);
+
+      res.status(204).end();
+    } catch (erro) {
+      console.log(erro);
+    }
+  }
 }
 
 export default destinoController;
