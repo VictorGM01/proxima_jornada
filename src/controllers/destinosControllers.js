@@ -35,6 +35,19 @@ class destinoController {
       console.log(erro);
     }
   }
+
+  // por meio do método findByIdAndUpdate, o mongoose busca e atualiza um dado específico da coleção destinos
+  static async atualizarDestino(req, res) {
+    try {
+      const idBuscado = req.params.id;
+      const dados = req.body;
+      await destinos.findByIdAndUpdate(idBuscado, dados);
+
+      res.status(204).end();
+    } catch (erro) {
+      console.log(erro);
+    }
+  }
 }
 
 export default destinoController;
