@@ -1,13 +1,13 @@
 import express from "express";
-import depoimentosController from "../controllers/depoimentosControllers.js";
+import destinoController from "../controllers/destinosControllers.js";
 
 const router = express.Router();
 
 router
-  .get("/destinos", depoimentosController.obterDepoimentos)
-  .get("/destinos/:id", depoimentosController.obterDepoimento)
-  .post("/destinos", depoimentosController.cadastrarDepoimento)
-  .put("/destinos/:id", depoimentosController.atualizarDepoimento)
-  .delete("/destinos/:id", depoimentosController.deletarDepoimento);
+  .get("/destinos", destinoController.obterDestinos)
+  .get("/destinos/:id", destinoController.obterDestino)
+  .post("/destinos", destinoController.cadastrarDestino)
+  .put("/destinos/:id", destinoController.atualizarDestino)
+  .delete("/destinos/:id", destinoController.deletarDestino);
 
 export default router;
