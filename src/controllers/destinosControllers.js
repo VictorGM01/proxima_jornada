@@ -23,6 +23,18 @@ class destinoController {
       console.log(erro);
     }
   }
+
+  // por meio do método save, o mongoose salva um novo dado na coleção destinos
+  static async cadastrarDestino(req, res) {
+    try {
+      const destino = new destino(req.body);
+      const resultado = await destino.save();
+
+      res.status(201).json(resultado);
+    } catch (erro) {
+      console.log(erro);
+    }
+  }
 }
 
 export default destinoController;
