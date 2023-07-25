@@ -21,9 +21,12 @@ describe("Testes de integração da API de destinos", () => {
     const axios = require("axios");
     const resposta = await axios.post("http://localhost:3000/destinos",
       {
-        foto: "url.teste.com",
-        nome: "Moscou", 
-        preco: 3000}
+        foto1: "url.teste.com",
+        foto2: "url.2.teste.com",
+        nome: "Moscou",
+        meta: "Moscou é a capital da russia.",
+        preco: 3000
+      }
     )
       .then((resposta) => {
         return resposta;
