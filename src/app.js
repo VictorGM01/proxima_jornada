@@ -3,6 +3,7 @@ import db from "./config/dbConnect.js";
 import bodyParser from "body-parser";
 import routes from "./routes/routes.js";
 import cors from "cors";
+import manipuladorDeErros from "./middlewares/manipuladorDeErros.js";
 
 
 // ------------------ Banco de Dados ------------------
@@ -21,6 +22,7 @@ app.use(cors());
 
 routes(app);
 
+app.use(manipuladorDeErros);
 
 // ------------------  Body Parser  -------------------
 // Configura o body parser para receber corpos de requisição em JSON
