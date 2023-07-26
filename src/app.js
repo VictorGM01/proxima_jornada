@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import routes from "./routes/routes.js";
 import cors from "cors";
 import manipuladorDeErros from "./middlewares/manipuladorDeErros.js";
+import manipulador404 from "./middlewares/manipulador404.js";
 
 
 // ------------------ Banco de Dados ------------------
@@ -21,6 +22,8 @@ app.use(express.json());
 app.use(cors());
 
 routes(app);
+
+app.use(manipulador404);
 
 app.use(manipuladorDeErros);
 

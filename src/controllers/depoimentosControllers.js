@@ -1,4 +1,5 @@
 import depoimentos from "../models/Depoimento.js";
+import NaoEncontrado from "../errors/Erro404.js";
 
 class depoimentoController {
   // por meio do método find, o mongoose busca todos os dados da coleção depoimentos
@@ -19,7 +20,11 @@ class depoimentoController {
 
       const resultado = await depoimentos.findById(idBuscado);
 
-      res.status(200).json(resultado);
+      if(resultado !== null){
+        res.status(200).json(resultado);
+      } else {
+        next(new NaoEncontrado("Depoimento não encontrado."));
+      }
     } catch (erro) {
       next(erro);
     }

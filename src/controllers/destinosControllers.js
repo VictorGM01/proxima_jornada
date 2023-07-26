@@ -1,4 +1,5 @@
 import destinos from "../models/Destino.js";
+import NaoEncontrado from "../errors/Erro404.js";
 
 class destinoController {
   // por meio do método find, o mongoose busca todos os dados da coleção destinos
@@ -16,7 +17,7 @@ class destinoController {
 
         // verifica se o resultado da busca é vazio
         if (resultadoFiltrado.length === 0) {
-          res.status(404).json({mensagem: "Nenhum destino foi encontrado."});
+          next(new NaoEncontrado("Nenhum destino foi encontrado."));
           return;
         }
         res.status(200).json(resultadoFiltrado);
@@ -35,7 +36,11 @@ class destinoController {
       const idBuscado = req.params.id;
       const resultado = await destinos.findById(idBuscado);
 
-      res.status(200).json(resultado);
+      if(resultado !== null){
+        res.status(200).json(resultado);
+      } else {
+        next(new NaoEncontrado("Destino não encontrado."));
+      }
     } catch (erro) {
       next(erro);
     }
