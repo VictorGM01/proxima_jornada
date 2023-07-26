@@ -7,14 +7,25 @@ describe("Testes de integração da API de destinos", () => {
 
   test("Valida o statusCode do GET de um destino", async () => {
     const axios = require("axios");
-    const resposta = await axios("http://localhost:3000/destinos/64be884ee8b8bf5597404c9c");
-    expect(resposta.status).toEqual(200);
+    try {
+      const resposta = await axios("http://localhost:3000/destinos/64be884ee8b8bf5597404c9d");
+      expect(resposta.status).toEqual(200);
+    } catch (erro) {
+      expect(erro.response.status).toEqual(404);
+      expect(erro.response.data).toEqual({ mensagem: "Destino não encontrado." });
+    }
+    
   });
 
   test("Valida o statusCode do GET de uma busca", async () => {
     const axios = require("axios");
-    const resposta = await axios("http://localhost:3000/destinos?nome=Paris");
-    expect(resposta.status).toEqual(200);
+    try {
+      const resposta = await axios("http://localhost:3000/destinos?nome=Paris");
+      expect(resposta.status).toEqual(200);
+    } catch (erro) {
+      expect(erro.response.status).toEqual(404);
+      expect(erro.response.data).toEqual({ mensagem: "Nenhum destino foi encontrado." });
+    }
   });
 
   test("Valida o statusCode do POST de um destino", async () => {

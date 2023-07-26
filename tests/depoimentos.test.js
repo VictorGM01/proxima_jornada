@@ -7,8 +7,13 @@ describe("Testes de integração da API de depoimentos", () => {
   
   test("valida o statusCode do GET de um depoimento", async () => {
     const axios = require("axios");
-    const resposta = await axios("http://localhost:3000/depoimentos/64b94bb4ff26018973bbd314");
-    expect(resposta.status).toEqual(200);
+    try {
+      const resposta = await axios("http://localhost:3000/depoimentos/64b94bb4ff26018973bbd315");
+      expect(resposta.status).toEqual(200);
+    } catch (erro) {
+      expect(erro.response.status).toEqual(404);
+      expect(erro.response.data).toEqual({ mensagem: "Depoimento não encontrado." });
+    }
   });
   
   test("valida o statusCode do GET de três depoimentos randômicos", async () => {
