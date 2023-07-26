@@ -1,8 +1,9 @@
 import destinos from "../models/Destino.js";
+import NaoEncontrado from "../errors/Erro404.js";
 
 class destinoController {
   // por meio do método find, o mongoose busca todos os dados da coleção destinos
-  static async obterDestinos(req, res) {
+  static async obterDestinos(req, res, next) {
     try {
 
       // verifica se há busca na requisicao
@@ -16,7 +17,7 @@ class destinoController {
 
         // verifica se o resultado da busca é vazio
         if (resultadoFiltrado.length === 0) {
-          res.status(404).json({mensagem: "Nenhum destino foi encontrado."});
+          next(new NaoEncontrado("Nenhum destino foi encontrado."));
           return;
         }
         res.status(200).json(resultadoFiltrado);
@@ -25,36 +26,40 @@ class destinoController {
         res.status(200).json(resultado);
       }
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 
   // por meio do método findById, o mongoose busca um dado específico da coleção destinos
-  static async obterDestino(req, res) {
+  static async obterDestino(req, res, next) {
     try {
       const idBuscado = req.params.id;
       const resultado = await destinos.findById(idBuscado);
 
-      res.status(200).json(resultado);
+      if(resultado !== null){
+        res.status(200).json(resultado);
+      } else {
+        next(new NaoEncontrado("Destino não encontrado."));
+      }
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 
   // por meio do método save, o mongoose salva um novo dado na coleção destinos
-  static async cadastrarDestino(req, res) {
+  static async cadastrarDestino(req, res, next) {
     try {
       const destino = new destinos(req.body);
       const resultado = await destino.save();
 
       res.status(201).json(resultado);
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 
   // por meio do método findByIdAndUpdate, o mongoose busca e atualiza um dado específico da coleção destinos
-  static async atualizarDestino(req, res) {
+  static async atualizarDestino(req, res, next) {
     try {
       const idBuscado = req.params.id;
       const dados = req.body;
@@ -62,19 +67,19 @@ class destinoController {
 
       res.status(204).end();
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 
   // por meio do método findByIdAndDelete, o mongoose busca e deleta um dado específico da coleção destinos
-  static async deletarDestino(req, res) {
+  static async deletarDestino(req, res, next) {
     try {
       const idBuscado = req.params.id;
       await destinos.findByIdAndDelete(idBuscado);
 
       res.status(204).end();
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 }

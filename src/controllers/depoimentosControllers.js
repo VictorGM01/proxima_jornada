@@ -1,27 +1,32 @@
 import depoimentos from "../models/Depoimento.js";
+import NaoEncontrado from "../errors/Erro404.js";
 
 class depoimentoController {
   // por meio do método find, o mongoose busca todos os dados da coleção depoimentos
-  static async obterDepoimentos(req, res) {
+  static async obterDepoimentos(req, res, next) {
     try{
       const resultado = await depoimentos.find();
 
       res.status(200).json(resultado);
     } catch(erro){
-      console.log(erro);
+      next(erro);
     }
   }
 
   // por meio do método findById, o mongoose busca um dado específico da coleção depoimentos
-  static async obterDepoimento(req, res) {
+  static async obterDepoimento(req, res, next) {
     try {
       const idBuscado = req.params.id;
 
       const resultado = await depoimentos.findById(idBuscado);
 
-      res.status(200).json(resultado);
+      if(resultado !== null){
+        res.status(200).json(resultado);
+      } else {
+        next(new NaoEncontrado("Depoimento não encontrado."));
+      }
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 
@@ -29,7 +34,7 @@ class depoimentoController {
   // em seguida, o método skip pula um número aleatório de documentos
   // por fim, o método findOne busca um dado específico da coleção depoimentos
   // esse processo é repetido três vezes para obter três depoimentos aleatórios 
-  static async obterTresDepoimentos(req, res) {
+  static async obterTresDepoimentos(req, res, next) {
     try{
       // Conta quantos depoimentos existem na coleção
       const resultado = await depoimentos.countDocuments();
@@ -54,23 +59,23 @@ class depoimentoController {
       // Retorna os três depoimentos
       res.status(200).json([depoimento1, depoimento2, depoimento3]);
     } catch(erro){
-      console.log(erro);
+      next(erro);
     }
   }
 
   // por meio do método save, o mongoose salva um novo dado na coleção depoimentos
-  static async cadastrarDepoimento(req, res) {
+  static async cadastrarDepoimento(req, res, next) {
     try {
       const depoimento = new depoimentos(req.body);
       const resultado = await depoimento.save();
       res.status(201).json(resultado);
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     } 
   }
 
   // por meio do método findByIdAndUpdate, o mongoose busca e atualiza um dado específico da coleção depoimentos
-  static async atualizarDepoimento(req, res) {
+  static async atualizarDepoimento(req, res, next) {
     try {
       const idBuscado = req.params.id;
       const dados = req.body;
@@ -79,12 +84,12 @@ class depoimentoController {
 
       res.status(204).end();
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 
   // por meio do método findByIdAndDelete, o mongoose busca e deleta um dado específico da coleção depoimentos
-  static async deletarDepoimento(req, res) {
+  static async deletarDepoimento(req, res, next) {
     try {
       const idBuscado = req.params.id;
 
@@ -92,7 +97,7 @@ class depoimentoController {
       
       res.status(204).end();
     } catch (erro) {
-      console.log(erro);
+      next(erro);
     }
   }
 }
