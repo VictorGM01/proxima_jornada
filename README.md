@@ -3,7 +3,12 @@
 
 <p align="center">
  <a href="#descrição-do-projeto-">Descrição</a> •
- <a href="#estrutura-de-pastas-%EF%B8%8F">Pastas</a>
+ <a href="#estrutura-de-pastas-%EF%B8%8F">Pastas</a> •
+ <a href="#funcionalidades-">Funcionalidades</a> •
+ <a href="#status-do-projeto-">Status</a> •
+ <a href="#como-rodar-a-aplicação-">Rodar</a> •
+ <a href="#como-rodar-os-testes-">Testes</a> •
+ <a href="#desenvolvedor-octocat">Desenvolvedor</a>
 </p>
 
 ## Descrição do Projeto 📋
