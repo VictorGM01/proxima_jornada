@@ -51,3 +51,20 @@ Já na pasta tests há dois arquivos: depoimentos.test.js, o qual possui todos o
 ## Status do Projeto 🔔
 
 ✅ Concluído ✅
+
+## Como rodar a aplicação ▶️
+
+```bash
+# Clone este repositório
+$ git clone https://github.com/VictorGM01/proxima_jornada.git
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd proxima_jornada
+
+# Instale as dependências
+$ npm install
+
+# Crie um arquivo .env na raíz do projeto e preencha as variáveis de ambiente, sobretudo a STRING_CONEXAO_DB, com a string de conexão do seu banco de dados MongoDB
+
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
