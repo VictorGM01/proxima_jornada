@@ -32,3 +32,22 @@ Esta é uma API desenvolvida em JavaScript, especialmente com Node e Express, pa
 Na pasta src, há todo o código da API, incluindo a conexão com o banco de dados (na pasta config), os controladores, as classes de erros, os middlewares para manipular o lançamento de erros e paginação, os modelos e as rotas dos endpoints.
 
 Já na pasta tests há dois arquivos: depoimentos.test.js, o qual possui todos os testes de integração relacionados à API de depoimentos, e destinos.test.js, o qual possui todos os testes de integração relacionados à API de destinos.
+
+## Funcionalidades ⚙️
+
+- [x] Cadastrar um novo destino
+- [x] Editar um destino
+- [x] Excluir um destino
+- [x] Listar todos os destinos
+- [x] Listar um destino específico
+- [x] Cadastrar um novo depoimento
+- [x] Editar um depoimento
+- [x] Excluir um depoimento
+- [x] Listar todos os depoimentos
+- [x] Listar um depoimento específico
+- [x] Listar 3 depoimentos aleatórios
+- [x] Lançar erros personalizados
+
+## Status do Projeto 🔔
+
+✅ Concluído ✅
